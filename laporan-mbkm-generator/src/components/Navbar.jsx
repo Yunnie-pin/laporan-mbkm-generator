@@ -1,6 +1,19 @@
 import React from "react";
 
 function Navbar() {
+  let item = [
+    {
+      name: "Home",
+      link: "#",
+      status: "active",
+    },
+    {
+      name: "Disclaimer",
+      link: "#",
+      status: "",
+    },
+  ];
+
   return (
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
       <div class="container">
@@ -18,20 +31,22 @@ function Navbar() {
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          {item.map((item) => (
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
-                Home
+              <a
+                class={`nav-link ${item.status}`}
+                aria-current="page"
+                href={item.link}
+              >
+                {item.name}
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">
-                Disclaimer
-              </a>
-            </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
       </div>
     </nav>
   );
