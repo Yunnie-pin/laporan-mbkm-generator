@@ -36,7 +36,7 @@ function HintGetToken() {
               <br />
               &nbsp;&nbsp;&#125;
               <br />
-              &nbsp;&nbsp;return "";
+              &nbsp;&nbsp;return "Token tidak ditemukan, silahkan login terlebih dahulu";
               <br />
               &#125;
               <br />

@@ -1,14 +1,40 @@
 import React from "react";
+import { getProfile } from "../utils/api";
 
-function FormCheckToken(){
+class FormCheckToken extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      token: "",
+    }
+  }
+
+  onTokenChange = (event) => {
+    this.setState({token: event.target.value});
+    this.setState()
+  }
+
+  onTokenSubmit = async (event) => {
+    event.preventDefault();
+    
+    this.props.onToken(this.state.token);
+  }
+
+  render(){
     return (
-        <form>
+      <>
+      <form onSubmit={this.onTokenSubmit}>
           <div class="mb-3">
             <label class="form-label">
               Token
               <span className="text-danger">*</span>
             </label>
-            <textarea class="form-control" placeholder="Token" />
+            <textarea 
+            class="form-control" 
+            placeholder="Token" 
+            value={this.state.token}
+            onChange={this.onTokenChange}
+            />
             <div class="form-text">
               Cara mendapatkan token{" "}
               <a href="#" className="text-decoration-none">
@@ -21,7 +47,9 @@ function FormCheckToken(){
             Cek
           </button>
         </form>
+      </>
     )
+  }
 }
 
 export default FormCheckToken;
