@@ -2,10 +2,10 @@ import React from "react";
 
 function Footer() {
   return (
-    <div class="text-center p-3">
+    <div className="text-center p-3">
       © 2023{" "}
       <a
-        class="text-white text-decoration-none"
+        className="text-white text-decoration-none"
         href="https://github.com/Yunnie-pin"
       >
         (Yunnie-pin)
@@ -13,7 +13,7 @@ function Footer() {
       -{" "}
       <a
         href="https://github.com/Yunnie-pin/laporan-mbkm-generator"
-        class="text-white text-decoration-none"
+        className="text-white text-decoration-none"
       >
         (laporan-mbkm-generator)
       </a>

@@ -4,17 +4,17 @@ import sstoken from "../assets/sstoken.jpg";
 function HintGetToken() {
   return (
     <>
-      <h5 class="card-title">1. Buka dan Login di Web Kampus Merdeka</h5>
-      <h5 class="card-title">2. Buka Console</h5>
-      <p class="card-text">
+      <h5 className="card-title">1. Buka dan Login di Web Kampus Merdeka</h5>
+      <h5 className="card-title">2. Buka Console</h5>
+      <p className="card-text">
         Klik kanan pada halaman web, lalu pilih inspect element, lalu pilih tab
         console atau tekan{" "}
         <kbd>
           <kbd>ctrl</kbd>+ <kbd>shift</kbd>+ <kbd>I</kbd> lalu pilih tab console
         </kbd>
       </p>
-      <h5 class="card-title">3. Copy kode dibawah ini</h5>
-      <p class="card-text">
+      <h5 className="card-title">3. Copy kode dibawah ini</h5>
+      <p className="card-text">
         <div className="card">
           <div className="card-body">
             <code>

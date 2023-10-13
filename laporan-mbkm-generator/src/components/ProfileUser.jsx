@@ -33,13 +33,13 @@ class ProfileUser extends React.Component {
   render() {
     if (this.props.token == "") {
       return <CustomAlert status="warning" content="Masukkan token" />;
-    } else if (this.props.token == "error"){
+    } else if (this.props.token == 'error'){
       return <CustomAlert status="danger" content="Token tidak valid" />;
     } else {
       return (
         <>
-          <h5 class="card-title">{this.state.profile.name}</h5>
-          <p class="card-text">
+          <h5 className="card-title">{this.state.profile.name}</h5>
+          <p className="card-text">
             {this.state.profile.position} ({this.state.profile.company})
           </p>
         </>

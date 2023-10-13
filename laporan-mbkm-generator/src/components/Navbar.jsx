@@ -15,13 +15,13 @@ function Navbar() {
   ];
 
   return (
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark">
-      <div class="container">
-        <a class="navbar-brand mb-0 h1" href="#">
+    <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
+      <div className="container">
+        <a className="navbar-brand mb-0 h1" href="#">
           MBKM toolkits
         </a>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavDropdown"
@@ -29,16 +29,16 @@ function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
       </div>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          {item.map((item) => (
-            <li class="nav-item">
+      <div className="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul className="navbar-nav">
+          {item.map((item, index) => (
+            <li className="nav-item" key={index}>
               <a
-                class={`nav-link ${item.status}`}
+                className={`nav-link ${item.status}`}
                 aria-current="page"
                 href={item.link}
               >

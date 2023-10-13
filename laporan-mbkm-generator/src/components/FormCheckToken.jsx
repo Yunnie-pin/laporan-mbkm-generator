@@ -1,41 +1,40 @@
 import React from "react";
-import { getProfile } from "../utils/api";
+import Button from "./Elements/Button";
+import Textarea from "./Elements/Textarea";
+import Label from "./Elements/Label";
 
 class FormCheckToken extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       token: "",
-    }
+      statusToken: "",
+    };
   }
 
   onTokenChange = (event) => {
-    this.setState({token: event.target.value});
-    this.setState()
-  }
+    this.setState({ token: event.target.value });
+    this.setState();
+  };
 
   onTokenSubmit = async (event) => {
     event.preventDefault();
-    
-    this.props.onToken(this.state.token);
-  }
 
-  render(){
+    this.props.onToken(this.state.token);
+  };
+
+  render() {
     return (
       <>
-      <form onSubmit={this.onTokenSubmit}>
-          <div class="mb-3">
-            <label class="form-label">
-              Token
-              <span className="text-danger">*</span>
-            </label>
-            <textarea 
-            class="form-control" 
-            placeholder="Token" 
-            value={this.state.token}
-            onChange={this.onTokenChange}
+        <form onSubmit={this.onTokenSubmit}>
+          <div className="mb-3">
+            <Label text="Token" star/>
+            <Textarea
+              placeholder="Masukkan token"
+              value={this.state.token}
+              onChange={this.onTokenChange}
             />
-            <div class="form-text">
+            <div className="form-text">
               Cara mendapatkan token{" "}
               <a href="#" className="text-decoration-none">
                 disini
@@ -43,13 +42,12 @@ class FormCheckToken extends React.Component {
             </div>
           </div>
 
-          <button type="submit" class="btn btn-dark border-top border-light">
-            Cek
-          </button>
+          <Button text="Cek Token" />
         </form>
       </>
-    )
+    );
   }
 }
+
 
 export default FormCheckToken;

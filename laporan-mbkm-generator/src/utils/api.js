@@ -9,11 +9,14 @@ async function getProfile(token) {
             });
             //response status 200
             if (response.status !== 200) {
-                return 'error';
+                // const data = await response.json();
+                // console.log(data.error.message);
+                return data;
             }else{
                 const data = await response.json();
                 return data.data;
             }
+           
     } catch (error) {
         return 'error';
     }
@@ -38,7 +41,6 @@ async function getActiveKegiatan(token) {
             return kegiatan.activity_in_progress === true;
         })[0];
 
-        
 }
 
 export { getProfile, getActiveKegiatan };

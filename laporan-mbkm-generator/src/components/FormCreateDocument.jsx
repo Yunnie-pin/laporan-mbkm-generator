@@ -1,38 +1,28 @@
 import React from "react";
+import Button from "../components/Elements/Button";
+import InputSelectMingguan from "../components/Fragments/InputSelectMingguan";
+import InputImageParaf from "../components/Fragments/InputImageParaf";
 
 function FormCreateDocument() {
+  const data = [
+    {
+      "value": "1",
+      "text": "1"
+    },
+    {
+      "value": "2",
+      "text": "2"
+    }
+  ];
+
   return (
     <form>
-      <div class="mb-3">
-        <label class="form-label">Minggu</label>
-        <select class="form-select">
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
-        </select>
-      </div>
-      <div class="mb-3">
-        <label for="formFile" class="form-label">
-          Paraf Mahasiswa :
-        </label>
-        <input class="form-control" type="file" />
-      </div>
-      <div class="mb-3">
-        <label for="formFile" class="form-label">
-          Paraf Pembimbing :
-        </label>
-        <input class="form-control" type="file" />
-      </div>
-      <div class="mb-3">
-        <label for="formFile" class="form-label">
-          Paraf Dosen :
-        </label>
-        <input class="form-control" type="file" />
-      </div>
+      <InputSelectMingguan name="minggu" data={data} />
+      <InputImageParaf text="Paraf Mahasiswa :" name="parafMahasiswa" />
+      <InputImageParaf text="Paraf Pembimbing :" name="parafPembimbing" />
+      <InputImageParaf text="Paraf Dosen :" name="parafDosen" />
 
-      <button type="submit" class="btn btn-dark border border-light">
-        Buat Dokumen
-      </button>
+      <Button text="Buat Dokumen" />
     </form>
   );
 }

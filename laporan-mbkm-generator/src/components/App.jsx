@@ -26,7 +26,6 @@ class App extends React.Component {
     return (
       <div className="bg-dark min-vh-100 text-white">
         <Navbar />
-        <p>{this.state.token}</p>
         <div className="container">
           <CustomAlert
             status="warning"
@@ -38,7 +37,7 @@ class App extends React.Component {
             masukkan hanya digunakan untuk membaca data dari website Kampus
             Merdeka"
           />
-          <div class="row">
+          <div className="row">
             <div className="col-lg-6 p-3">
               <div className="pb-2">
                 {" "}
