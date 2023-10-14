@@ -21,6 +21,11 @@ const AccordionReport = (props) => {
 
 const AccordionItem = (props) => {
   const { item, index, dataLength } = props;
+  
+  const learnedWeekly = item.learned_weekly; // Mengakses learned_weekly dari objek pertama
+    // Mengganti karakter "\n" dengan elemen <br> menggunakan dangerouslySetInnerHTML
+    const learnedWeeklyWithLineBreaks = { __html: learnedWeekly.replace(/\n/g, "<br>") };
+
   return (
     <div className="accordion-item" key={index}>
       <h2 className="accordion-header" id="headingOne">
@@ -42,7 +47,8 @@ const AccordionItem = (props) => {
         data-bs-parent="#accordions"
       >
         <div className="accordion-body">
-          <strong>Laporan Mingguan</strong> {item.learned_weekly}
+          <strong>Laporan Mingguan</strong> 
+          <div  dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}></div>
         </div>
       </div>
     </div>
