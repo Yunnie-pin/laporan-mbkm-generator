@@ -1,12 +1,19 @@
-
+import { Link } from "react-router-dom";
 
 const Button = (props) => {
-    const {text} = props;
+    const {text, type, to } = props;
     return (
-      <button type="submit" className="btn btn-dark border-top border-light">
-        {text}
-      </button>
-    )
+      type === "link" ? (
+        <Link to={to} className="btn btn-dark border-top border-light">
+          {text}
+        </Link>
+      ) : (
+        <button type="submit" className="btn btn-dark border-top border-light">
+          {text}
+        </button>
+      )
+    );
   }
+
 
 export default Button;

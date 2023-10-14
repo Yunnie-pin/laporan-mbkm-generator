@@ -1,15 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   let item = [
     {
       name: "Home",
-      link: "#",
+      link: "/",
       status: "active",
     },
     {
       name: "Disclaimer",
-      link: "#",
+      link: "/disclaimer",
       status: "",
     },
   ];
@@ -37,13 +38,13 @@ function Navbar() {
         <ul className="navbar-nav">
           {item.map((item, index) => (
             <li className="nav-item" key={index}>
-              <a
+              <Link
                 className={`nav-link ${item.status}`}
                 aria-current="page"
-                href={item.link}
+                to={item.link}
               >
                 {item.name}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
