@@ -1,19 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
   let item = [
     {
       name: "Home",
       link: "/",
-      status: "active",
+
     },
     {
       name: "Disclaimer",
       link: "/disclaimer",
-      status: "",
     },
+    {
+      name: "Test",
+      link: "/Test",
+    }
   ];
+
+  const location = useLocation();
 
   return (
     <nav className="navbar navbar-dark navbar-expand-lg bg-dark">
@@ -39,7 +44,7 @@ function Navbar() {
           {item.map((item, index) => (
             <li className="nav-item" key={index}>
               <Link
-                className={`nav-link ${item.status}`}
+                className={`nav-link ${location.pathname === item.link ? "active" : ""}`}
                 aria-current="page"
                 to={item.link}
               >

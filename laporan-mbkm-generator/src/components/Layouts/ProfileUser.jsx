@@ -1,16 +1,13 @@
 import React from "react";
 import CustomAlert from "../Elements/CustomAlert";
-import { getProfile, getActiveKegiatan } from "../../utils/api";
+import { getProfile, getActiveKegiatan, getReport } from "../../utils/api";
 
 class ProfileUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile: {
-        name: "",
-        position: "",
-        company: "",
-      },
+      profile: null,
+      kegiatan: null,
     };
   }
 
@@ -18,29 +15,37 @@ class ProfileUser extends React.Component {
     if (prevProps.token !== this.props.token) {
       const profile = await getProfile(this.props.token);
       const kegiatan = await getActiveKegiatan(this.props.token);
-
+      
       this.setState(() => {
         return {
-          profile: {
-            name: profile.name,
-            position: kegiatan.nama_kegiatan,
-            company: kegiatan.mitra_brand_name,
-          },
+          profile: profile,
+          kegiatan: kegiatan,
         };
       });
+      this.props.onIdKegiatan(kegiatan.id);
     }
   }
+
   render() {
     if (this.props.token == "") {
       return <CustomAlert status="warning" content="Masukkan token" />;
-    } else if (this.props.token == 'error'){
-      return <CustomAlert status="danger" content="Token tidak valid" />;
+    }
+
+    if (this.state.profile == null) {
+      return <CustomAlert status="warning" content="Loading..." />;
+    }
+
+    if (this.state.profile.error) {
+      return <CustomAlert status="danger" content={this.state.profile.error} />;
     } else {
       return (
         <>
-          <h5 className="card-title">{this.state.profile.name}</h5>
-          <p className="card-text">
-            {this.state.profile.position} ({this.state.profile.company})
+          <h5 className="card-title">{this.state.profile.data.name}</h5>
+          <h6 className="card-subtitle text-muted">
+            Jenis kegiatan : {this.state.kegiatan.name_ref_kegiatan}
+          </h6>
+          <p className="card-text text-muted">
+            { (this.state.kegiatan) ? <>{this.state.kegiatan.mitra_brand_name} | {this.state.kegiatan.nama_kegiatan} | {this.state.kegiatan.id} </> : "Tidak ada kegiatan yang aktif"}
           </p>
         </>
       );

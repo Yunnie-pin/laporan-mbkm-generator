@@ -3,7 +3,9 @@ import ReactDOM from "react-dom/client";
 import Base from "./components/base";
 import HomePage from "./components/pages/HomePage";
 import NotFoundPage from "./components/pages/NotFoundPage";
+import DisclaimerPage from "./components/pages/DisclaimerPage";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import "./App.css"
 
 const router = createBrowserRouter([
   {
@@ -12,7 +14,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/disclaimer",
-    element: <Base children={<>Disclaimer</>} />,
+    element: <Base children={<DisclaimerPage/>} />,
   },
   {
     path: "/:path*",
