@@ -1,12 +1,12 @@
 import React from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import CustomCard from "./CustomCard";
-import CustomAlert from "./CustomAlert";
-import FormCheckToken from "./FormCheckToken";
-import FormCreateDocument from "./FormCreateDocument";
-import ProfileUser from "./ProfileUser";
-import HintGetToken from "./HintGetToken";
+import Navbar from "./Layouts/Navbar";
+import Footer from "./Layouts/Footer";
+import CustomCard from "./../components/Elements/CustomCard";
+import CustomAlert from "../components/Elements/CustomAlert/";
+import FormCheckToken from "./Layouts/FormCheckToken";
+import FormCreateDocument from "./Layouts/FormCreateDocument";
+import ProfileUser from "./Layouts/ProfileUser";
+import HintGetToken from "./Layouts/HintGetToken";
 
 class App extends React.Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class App extends React.Component {
   onTokenHandler(token) {
     this.setState({ token: token });
   }
-
 
   render() {
     return (
@@ -40,7 +39,6 @@ class App extends React.Component {
           <div className="row">
             <div className="col-lg-6 p-3">
               <div className="pb-2">
-                {" "}
                 <CustomCard
                   title="Cek Token"
                   content={<FormCheckToken onToken={this.onTokenHandler} />}
@@ -53,14 +51,12 @@ class App extends React.Component {
 
             <div className="col-lg-6 p-3">
               <div className="pb-2">
-                {" "}
                 <CustomCard
                   title="Profile"
-                  content={<ProfileUser token={this.state.token}/>}
+                  content={<ProfileUser token={this.state.token} />}
                 />
               </div>
               <div className="pb-2">
-                {" "}
                 <CustomCard
                   title="Petunjuk Mendapatkan Token"
                   content={<HintGetToken />}

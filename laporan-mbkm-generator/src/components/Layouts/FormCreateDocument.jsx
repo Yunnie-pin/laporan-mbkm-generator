@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "../components/Elements/Button";
-import InputSelectMingguan from "../components/Fragments/InputSelectMingguan";
-import InputImageParaf from "../components/Fragments/InputImageParaf";
+import Button from "../Elements/Button";
+import InputSelectMingguan from "../Fragments/InputSelectMingguan";
+import InputImageParaf from "../Fragments/InputImageParaf";
 
 function FormCreateDocument() {
   const data = [
@@ -21,7 +21,6 @@ function FormCreateDocument() {
       <InputImageParaf text="Paraf Mahasiswa :" name="parafMahasiswa" />
       <InputImageParaf text="Paraf Pembimbing :" name="parafPembimbing" />
       <InputImageParaf text="Paraf Dosen :" name="parafDosen" />
-
       <Button text="Buat Dokumen" />
     </form>
   );

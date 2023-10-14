@@ -1,7 +1,7 @@
 import React from "react";
-import Button from "./Elements/Button";
-import Textarea from "./Elements/Textarea";
-import Label from "./Elements/Label";
+import Button from "../Elements/Button";
+import Textarea from "../Elements/Textarea";
+import Label from "../Elements/Label";
 
 class FormCheckToken extends React.Component {
   constructor(props) {

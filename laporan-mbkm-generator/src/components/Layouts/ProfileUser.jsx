@@ -1,6 +1,6 @@
 import React from "react";
-import CustomAlert from "./CustomAlert";
-import { getProfile, getActiveKegiatan } from "../utils/api";
+import CustomAlert from "../Elements/CustomAlert";
+import { getProfile, getActiveKegiatan } from "../../utils/api";
 
 class ProfileUser extends React.Component {
   constructor(props) {

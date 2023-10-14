@@ -1,5 +1,5 @@
 import React from "react";
-import sstoken from "../assets/sstoken.jpg";
+import sstoken from "../../assets/sstoken.jpg";
 
 function HintGetToken() {
   return (
