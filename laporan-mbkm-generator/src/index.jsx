@@ -4,8 +4,9 @@ import Base from "./components/base";
 import HomePage from "./components/pages/HomePage";
 import NotFoundPage from "./components/pages/NotFoundPage";
 import DisclaimerPage from "./components/pages/DisclaimerPage";
+import { CookiesProvider } from "react-cookie";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css"
+import "./App.css";
 
 const router = createBrowserRouter([
   {
@@ -14,18 +15,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/disclaimer",
-    element: <Base children={<DisclaimerPage/>} />,
+    element: <Base children={<DisclaimerPage />} />,
   },
   {
     path: "/:path*",
     element: <Base children={<NotFoundPage />} />,
-  }
+  },
 ]);
 
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <CookiesProvider>
+      <RouterProvider router={router} />
+    </CookiesProvider>
   </React.StrictMode>
 );

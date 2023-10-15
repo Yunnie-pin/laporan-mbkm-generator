@@ -5,13 +5,16 @@ import FormCreateDocument from "../Layouts/FormCreateDocument";
 import ProfileUser from "../Layouts/ProfileUser";
 import HintGetToken from "../Layouts/HintGetToken";
 import AccordionReport from "../Layouts/AccordionReport";
+import { withCookies } from 'react-cookie';
 import { getReport } from "../../utils/api";
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
+
+    const { cookies } = props;
     this.state = {
-      token: "",
+      token: cookies.get('token') || "",
       report: null,
       idkegiatan: null,
     };
@@ -20,7 +23,17 @@ class HomePage extends React.Component {
   }
 
   onTokenHandler(token) {
+    const { cookies } = this.props;
+
+    cookies.set('token', token, { path: '/' });
     this.setState({ token: token });
+  }
+
+  async componentDidMount() {
+    if (this.state.token !== "") {
+      const kegiatan = await getActiveKegiatan(this.state.token);
+      this.setState({ idkegiatan: kegiatan.id });
+    }
   }
 
   async onIdKegiatanHandler(idkegiatan) {
@@ -79,4 +92,4 @@ class HomePage extends React.Component {
   }
 }
 
-export default HomePage;
+export default withCookies(HomePage);

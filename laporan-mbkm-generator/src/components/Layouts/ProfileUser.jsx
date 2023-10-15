@@ -11,6 +11,21 @@ class ProfileUser extends React.Component {
     };
   }
 
+  async componentDidMount() {
+    if (this.props.token !== "") {
+      const profile = await getProfile(this.props.token);
+      const kegiatan = await getActiveKegiatan(this.props.token);
+
+      this.setState(() => {
+        return {
+          profile: profile,
+          kegiatan: kegiatan,
+        };
+      });
+      this.props.onIdKegiatan(kegiatan.id);
+    }
+  }
+
   async componentDidUpdate(prevProps) {
     if (prevProps.token !== this.props.token) {
       const profile = await getProfile(this.props.token);
