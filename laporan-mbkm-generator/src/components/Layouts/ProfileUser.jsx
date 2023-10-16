@@ -16,7 +16,7 @@ class ProfileUser extends React.Component {
       const profile = await getProfile(this.props.token);
       const kegiatan = await getActiveKegiatan(this.props.token);
       
-      console.log(profile);
+      // console.log(profile);
       this.setState(() => {
         return {
           profile: profile,
