@@ -5,8 +5,8 @@ import FormCreateDocument from "../Layouts/FormCreateDocument";
 import ProfileUser from "../Layouts/ProfileUser";
 import HintGetToken from "../Layouts/HintGetToken";
 import AccordionReport from "../Layouts/AccordionReport";
-import { withCookies } from 'react-cookie';
-import { getReport } from "../../utils/api";
+import { withCookies } from "react-cookie";
+import { checkToken, getReport } from "../../utils/api";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -14,7 +14,8 @@ class HomePage extends React.Component {
 
     const { cookies } = props;
     this.state = {
-      token: cookies.get('token') || "",
+      login: null,
+      token: cookies.get("token") || "",
       report: null,
       idkegiatan: null,
     };
@@ -22,17 +23,72 @@ class HomePage extends React.Component {
     this.onIdKegiatanHandler = this.onIdKegiatanHandler.bind(this);
   }
 
-  onTokenHandler(token) {
+  async onTokenHandler(token) {
     const { cookies } = this.props;
+    const login = await checkToken(token);
 
-    cookies.set('token', token, { path: '/' });
-    this.setState({ token: token });
+    if (login.error) {
+      cookies.remove("token");
+      this.setState({
+        token: "",
+        idkegiatan: null,
+        report: null,
+      });
+      return;
+    }
+
+    this.setState({
+      login: login,
+      token: token,
+    });
+    
+    cookies.set("token", token, { path: "/" });
   }
 
   async componentDidMount() {
     if (this.state.token !== "") {
+      const { cookies } = this.props;
+      const login = await checkToken(this.state.token);
+
+      if (login.error) {
+        cookies.remove("token");
+        this.setState({
+          login: login,
+          token: null,
+          report: null,
+        });
+        return;
+      }
+
       const kegiatan = await getActiveKegiatan(this.state.token);
-      this.setState({ idkegiatan: kegiatan.id });
+      this.setState({
+        login: login,
+        idkegiatan: kegiatan.id,
+      });
+    }
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    if (prevState.token !== this.state.token) {
+      if (this.state.token !== "") {
+        const login = await checkToken(this.state.token);
+
+        if (login.error) {
+          this.setState({
+            login: login,
+            token: null,
+            report: null,
+          });
+          return;
+        }
+
+        const kegiatan = await getActiveKegiatan(this.state.token);
+        const report = await getReport(kegiatan.id, this.state.token);
+        this.setState({
+          idkegiatan: kegiatan.id,
+          report: report,
+        });
+      }
     }
   }
 

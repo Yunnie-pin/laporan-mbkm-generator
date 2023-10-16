@@ -1,3 +1,31 @@
+async function checkToken(token) {
+  try {
+    const response = await fetch(import.meta.env.VITE_URL_PROFILE, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        Authorization: "Bearer " + token,
+      },
+    });
+    //response status 200
+    if (response.status === 200) {
+      return {
+        status: "success",
+        error: null,
+      };
+    } else {
+      const data = await response.json();
+      
+      return {
+        status: "error",
+        error: data.error.message,
+      };
+    }
+  } catch (error) {
+    return "error";
+  }
+}
+
 async function getProfile(token) {
   try {
     const response = await fetch(import.meta.env.VITE_URL_PROFILE, {
@@ -19,9 +47,10 @@ async function getProfile(token) {
       const data = await response.json();
       return {
         data: null,
-        error: data.error.message,
+        error: data.error,
       };
     }
+
   } catch (error) {
     return "error";
   }
@@ -85,6 +114,7 @@ async function getReport(idKegiatan, token) {
 }
 
 export {
+  checkToken,
   getProfile,
   getActiveKegiatan,
   getGithubProfile,

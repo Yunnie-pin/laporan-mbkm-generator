@@ -1,6 +1,6 @@
 import React from "react";
 import CustomAlert from "../Elements/CustomAlert";
-import { getProfile, getActiveKegiatan, getReport } from "../../utils/api";
+import { getProfile, getActiveKegiatan } from "../../utils/api";
 
 class ProfileUser extends React.Component {
   constructor(props) {
@@ -15,7 +15,8 @@ class ProfileUser extends React.Component {
     if (this.props.token !== "") {
       const profile = await getProfile(this.props.token);
       const kegiatan = await getActiveKegiatan(this.props.token);
-
+      
+      console.log(profile);
       this.setState(() => {
         return {
           profile: profile,
@@ -23,7 +24,7 @@ class ProfileUser extends React.Component {
         };
       });
       this.props.onIdKegiatan(kegiatan.id);
-    }
+    } 
   }
 
   async componentDidUpdate(prevProps) {
@@ -43,7 +44,7 @@ class ProfileUser extends React.Component {
 
   render() {
     if (this.props.token == "") {
-      return <CustomAlert status="warning" content="Masukkan token" />;
+      return <CustomAlert status="warning" content="Masukkan token valid" />;
     }
 
     if (this.state.profile == null) {

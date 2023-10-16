@@ -12,7 +12,7 @@ const AccordionReport = (props) => {
       <h5 className="card-title p-2">Laporan Kegiatan</h5>
       <div className="accordion" id="accordions">
         {data.data.map((item, index) => {
-          return <AccordionItem item={item} index={index} dataLength={dataLength}/>;
+          return <AccordionItem item={item} dataLength={dataLength} key={index}/>;
         })}
       </div>
     </>
@@ -20,28 +20,28 @@ const AccordionReport = (props) => {
 };
 
 const AccordionItem = (props) => {
-  const { item, index, dataLength } = props;
+  const { item, key, dataLength } = props;
   
   const learnedWeekly = item.learned_weekly; // Mengakses learned_weekly dari objek pertama
     // Mengganti karakter "\n" dengan elemen <br> menggunakan dangerouslySetInnerHTML
     const learnedWeeklyWithLineBreaks = { __html: learnedWeekly.replace(/\n/g, "<br>") };
 
   return (
-    <div className="accordion-item" key={index}>
+    <div className="accordion-item" key={key}>
       <h2 className="accordion-header" id="headingOne">
         <button
           className="accordion-button text-white"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target={`#collapse${index}`}
+          data-bs-target={`#collapse${key}`}
           aria-expanded="true"
-          aria-controls={`collapse${index}`}
+          aria-controls={`collapse${key}`}
         >
-          Minggu Ke-{(dataLength) - (index)}
+          Minggu Ke-{(dataLength) - (key)}
         </button>
       </h2>
       <div
-        id={`collapse${index}`}
+        id={`collapse${key}`}
         className="accordion-collapse collapse"
         aria-labelledby="headingOne"
         data-bs-parent="#accordions"

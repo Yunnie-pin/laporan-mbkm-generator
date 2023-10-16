@@ -16,7 +16,7 @@ class FormCheckToken extends React.Component {
     this.setState({ token: event.target.value });
   };
 
-  onTokenSubmit = async (event) => {
+  onTokenSubmit = (event) => {
     event.preventDefault();
 
     this.props.onToken(this.state.token);
