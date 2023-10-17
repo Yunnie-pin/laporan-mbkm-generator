@@ -4,7 +4,6 @@ import FormCheckToken from "../Layouts/FormCheckToken";
 import FormCreateDocument from "../Layouts/FormCreateDocument";
 import ProfileUser from "../Layouts/ProfileUser";
 import HintGetToken from "../Layouts/HintGetToken";
-import AccordionReport from "../Layouts/AccordionReport";
 import { withCookies } from "react-cookie";
 import { checkToken, getReport } from "../../utils/api";
 
@@ -41,7 +40,7 @@ class HomePage extends React.Component {
       login: login,
       token: token,
     });
-    
+
     cookies.set("token", token, { path: "/" });
   }
 
@@ -119,7 +118,8 @@ class HomePage extends React.Component {
             </div>
             <div className="pb-2">
               {this.state.idkegiatan ? (
-                <AccordionReport data={this.state.report} />
+                // <AccordionReport data={this.state.report} />
+                <ReportSection data={this.state.report} />
               ) : (
                 <CustomCard title="Hint" content={<HintGetToken />} />
               )}
@@ -147,5 +147,84 @@ class HomePage extends React.Component {
     );
   }
 }
+
+const ReportSection = (props) => {
+  const { data } = props;
+  return (
+    <>
+      <h5 className="card-title p-2">Laporan Kegiatan</h5>
+      <div className="row">
+        {data.map((item, index) => {
+          return <ReportBulanan data={item}/>
+        })}
+      </div>
+    </>
+  );
+};
+
+const ReportBulanan = (props) => {
+  const { data } = props;
+  return (
+    <div className="px-3 pt-3">
+      <h6 className="text-center rounded bg-white text-black">{data.monthYear}</h6>
+      <ReportMingguan data={data.data} />
+    </div>
+  );
+}
+
+const ReportMingguan = (props) => {
+  const { data } = props;
+
+  if (data == null) {
+    return <CustomAlert status="warning" content="Loading..." />;
+  }
+
+  return (
+    <>
+      <div className="accordion" id="accordions">
+        {data.map((item, index) => {
+          return <AccordionItem item={item}  key={item.id}/>;
+        })}
+      </div>
+    </>
+  );
+}
+
+const AccordionItem = (props) => {
+  const { item } = props;
+
+  const learnedWeekly = item.learned_weekly; // Mengakses learned_weekly dari objek pertama
+  // Mengganti karakter "\n" dengan elemen <br> menggunakan dangerouslySetInnerHTML
+  const learnedWeeklyWithLineBreaks = { __html: learnedWeekly.replace(/\n/g, "<br>") };
+
+  return (
+    <div className="accordion-item">
+      <h2 className="accordion-header" id="headingOne">
+        <button
+          className="accordion-button text-white"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target={`#collapse${item.counter}`}
+          aria-expanded="true"
+          aria-controls={`collapse${item.counter}`}
+        >
+          Minggu Ke-{(item.counter)}
+        </button>
+      </h2>
+      <div
+        id={`collapse${item.counter}`}
+        className="accordion-collapse collapse"
+        aria-labelledby="headingOne"
+        data-bs-parent="#accordions"
+      >
+        <div className="accordion-body">
+          <strong>Laporan Mingguan</strong> 
+          <div  dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
 export default withCookies(HomePage);

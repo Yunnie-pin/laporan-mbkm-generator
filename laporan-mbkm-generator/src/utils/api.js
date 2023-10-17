@@ -110,7 +110,31 @@ async function getReport(idKegiatan, token) {
   );
 
   const data = await response.json();
-  return data;
+
+  const dataBulanan = []
+
+  data.data.forEach((report) => {
+    const date = new Date(report.start_date)
+    const month = date.toLocaleString('default', { month: 'long' });
+    const year = date.getFullYear()
+    const monthYear = month + ' ' + year
+
+    const index = dataBulanan.findIndex((data) => {
+      return data.monthYear === monthYear
+    })
+
+    if (index === -1) {
+      dataBulanan.push({
+        monthYear: monthYear,
+        data: [report]
+      })
+    } else {
+      dataBulanan[index].data.push(report)
+    }
+  });
+
+  console.log(dataBulanan);
+  return dataBulanan;
 }
 
 export {
