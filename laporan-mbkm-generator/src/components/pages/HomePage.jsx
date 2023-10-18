@@ -139,7 +139,10 @@ class HomePage extends React.Component {
               />
             </div>
             <div>
-              <CustomCard title="Dokumen" content={<FormCreateDocument />} />
+              <CustomCard 
+              title="Dokumen" 
+              content={<FormCreateDocument data={this.state.report}/>} 
+              />
             </div>
           </div>
         </div>

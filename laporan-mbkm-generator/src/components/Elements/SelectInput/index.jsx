@@ -4,7 +4,7 @@ const SelectInput = (props) => {
       <>
         <select className="form-select" name={name}>
           {data.map((item) => (
-            <option value={item.value}>{item.text}</option>
+            <option value={item.monthYear}>{item.monthYear}</option>
           ))}
         </select>
       </>

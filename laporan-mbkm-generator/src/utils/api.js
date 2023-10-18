@@ -133,7 +133,6 @@ async function getReport(idKegiatan, token) {
     }
   });
 
-  console.log(dataBulanan);
   return dataBulanan;
 }
 

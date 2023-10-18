@@ -1,10 +1,13 @@
 import React from "react";
 import Button from "../Elements/Button";
 import InputSelectMingguan from "../Fragments/InputSelectMingguan";
+import InputSelectBulanan from "../Fragments/InputSelectBulanan";
 import InputImageParaf from "../Fragments/InputImageParaf";
 
-function FormCreateDocument() {
-  const data = [
+function FormCreateDocument(props) {
+  const { data } = props;
+
+  const test = [
     {
       "value": "1",
       "text": "1"
@@ -18,12 +21,19 @@ function FormCreateDocument() {
   const handleDocument = (e) => {
     e.preventDefault();
     console.log('ini work coy');
-    console.log(e.target.minggu.value);
+    console.log(e.target.bulanan.value);
+    // console.log(data)
+  }
+
+  if(data == null) {
+    return <p>Menunggu Token...</p>  
   }
 
   return (
     <form onSubmit={handleDocument}>
-      <InputSelectMingguan name="minggu" data={data} />
+      {/* <InputSelectMingguan name="mingguan" data={data} /> */}
+      <InputSelectBulanan name="bulanan" data={data} />
+      {/* <InputSelectMingguan name="bulanan" data={data} /> */}
       {/* <InputImageParaf text="Paraf Mahasiswa :" name="parafMahasiswa" />
       <InputImageParaf text="Paraf Pembimbing :" name="parafPembimbing" />
       <InputImageParaf text="Paraf Dosen :" name="parafDosen" /> */}
