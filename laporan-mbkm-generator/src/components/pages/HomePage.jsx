@@ -6,6 +6,7 @@ import ProfileUser from "../Layouts/ProfileUser";
 import HintGetToken from "../Layouts/HintGetToken";
 import { withCookies } from "react-cookie";
 import { checkToken, getReport } from "../../utils/api";
+import Button from "../Elements/Button";
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -139,9 +140,9 @@ class HomePage extends React.Component {
               />
             </div>
             <div>
-              <CustomCard 
-              title="Dokumen" 
-              content={<FormCreateDocument data={this.state.report}/>} 
+              <CustomCard
+                title="Dokumen"
+                content={<FormCreateDocument data={this.state.report} />}
               />
             </div>
           </div>
@@ -158,7 +159,7 @@ const ReportSection = (props) => {
       <h5 className="card-title p-2">Laporan Kegiatan</h5>
       <div className="row">
         {data.map((item, index) => {
-          return <ReportBulanan data={item}/>
+          return <ReportBulanan data={item} />;
         })}
       </div>
     </>
@@ -169,11 +170,13 @@ const ReportBulanan = (props) => {
   const { data } = props;
   return (
     <div className="px-3 pt-3">
-      <h6 className="text-center rounded bg-white text-black">{data.monthYear}</h6>
+      <h6 className="text-center rounded bg-white text-black">
+        {data.monthYear}
+      </h6>
       <ReportMingguan data={data.data} />
     </div>
   );
-}
+};
 
 const ReportMingguan = (props) => {
   const { data } = props;
@@ -186,19 +189,22 @@ const ReportMingguan = (props) => {
     <>
       <div className="accordion" id="accordions">
         {data.map((item, index) => {
-          return <AccordionItem item={item}  key={item.id}/>;
+          return <AccordionItem item={item} key={item.id} />;
         })}
       </div>
     </>
   );
-}
+};
 
 const AccordionItem = (props) => {
   const { item } = props;
+  // console.log(item);
 
   const learnedWeekly = item.learned_weekly; // Mengakses learned_weekly dari objek pertama
   // Mengganti karakter "\n" dengan elemen <br> menggunakan dangerouslySetInnerHTML
-  const learnedWeeklyWithLineBreaks = { __html: learnedWeekly.replace(/\n/g, "<br>") };
+  const learnedWeeklyWithLineBreaks = {
+    __html: learnedWeekly.replace(/\n/g, "<br>"),
+  };
 
   return (
     <div className="accordion-item">
@@ -211,7 +217,7 @@ const AccordionItem = (props) => {
           aria-expanded="true"
           aria-controls={`collapse${item.counter}`}
         >
-          Minggu Ke-{(item.counter)}
+          Minggu Ke-{item.counter} 
         </button>
       </h2>
       <div
@@ -221,13 +227,110 @@ const AccordionItem = (props) => {
         data-bs-parent="#accordions"
       >
         <div className="accordion-body">
-          <strong>Laporan Mingguan</strong> 
-          <div  dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}></div>
+          <strong>Laporan Mingguan</strong>
+          <div>
+          (
+            {new Date(item.start_date).toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })} - {new Date(item.end_date).toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+                
+            )
+          </div>
+          <div
+            className="card my-2"
+            style={{ maxHeight: "200px", overflowY: "auto" }}
+          >
+            <div className="card-body">
+              <div
+                dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}
+                className="text-dark"
+              ></div>
+            </div>
+          </div>
+          <strong>Laporan Harian</strong>
+          <div className="d-flex justify-content-center my-2">
+            {item.daily_report.map((item, index) => {
+              return <ReportHarian item={item} key={item.id} />;
+            })}
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
+const ReportHarian = (props) => {
+  const { item, key } = props;
+
+  const learnedDaily = item.report; // Mengakses learned_daily dari objek pertama
+
+  // Mengganti karakter "\n" dengan elemen <br> menggunakan dangerouslySetInnerHTML
+  const learnedDailyWithLineBreaks = {
+    __html: learnedDaily.replace(/\n/g, "<br>"),
+  };
+
+  return (
+    <div className="text-dark">
+      <div className="p-2">
+        <Button
+          text={item.string_day}
+          modal={true}
+          modal_target={`#reportHarian${item.id}`}
+        ></Button>
+      </div>
+
+      <div
+        className="modal fade"
+        id={`reportHarian${item.id}`}
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">
+                {new Date(item.report_date).toLocaleDateString("id-ID", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div
+                dangerouslySetInnerHTML={learnedDailyWithLineBreaks}
+                className="text-dark"
+              ></div>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default withCookies(HomePage);
