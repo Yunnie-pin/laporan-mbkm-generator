@@ -29,7 +29,7 @@ function GithubContent(props) {
             </div>
           </div>
           <a
-            href={data.url}
+            href={data.html_url}
             className="btn btn-dark border-top border-light"
           >
             Visit Github
