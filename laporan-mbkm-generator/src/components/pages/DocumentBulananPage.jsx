@@ -1,63 +1,34 @@
-import {
-  Document,
-  Page,
-  Text,
-  View,
-  StyleSheet,
-  PDFViewer,
-} from "@react-pdf/renderer";
-// Create styles
-const styles = StyleSheet.create({
-  page: {
-    backgroundColor: "#ffffff",
-    margin: 10,
-    padding: 10,
-  },
-  header: {
-    textAlign: "center",
-    fontFamily: "Times-Bold",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  section: {
-    fontFamily: "Times-Roman",
-    fontSize: 12,
-    margin: 10,
-    padding: 10,
-  },
-  viewer: {
-    width: window.innerWidth, //the pdf viewer will take up all of the width and height
-    height: window.innerHeight,
-  },
-  table: {
-    margin : 10,
-    display: "table",
-    width: "auto",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderRightWidth: 0,
-    borderBottomWidth: 0,
-  },
-  tableRow: {
-    margin: "auto",
-    flexDirection: "row",
-  },
-  tableCol: {
-    width: "25%",
-    borderStyle: "solid",
-    borderWidth: 1,
-    borderLeftWidth: 0,
-    borderTopWidth: 0,
-  },
-  tableCell: {
-    margin: "auto",
-    marginTop: 5,
-    fontSize: 10,
-  },
-});
+import { Document, Page, Text, View, PDFViewer } from "@react-pdf/renderer";
+import { withCookies } from "react-cookie";
+import { useEffect, useState } from "react";
+import { checkToken } from "../../utils/api";
 
-// Create Document Component
-function DokumenBulanan() {
+import styles from "../../style/style";
+
+const Br = () => "\n";
+
+function DokumenBulanan(props) {
+  const { cookies } = props;
+  const [token, setToken] = useState(null);
+  const [login, setLogin] = useState(null);
+
+  useEffect(() => {
+    const token = cookies.get("token");
+    setToken(token);
+    
+    const login = checkToken(token);
+    if (login.error) {
+      cookies.remove("token");
+      setToken(null);
+      setLogin(null);
+      return;
+    }
+  }, []);
+
+  if (token === null) {
+    return <>Silahkan masukkan token terlebih dahulu</>;
+  }
+
   return (
     <PDFViewer style={styles.viewer}>
       {/* Start of the document*/}
@@ -71,37 +42,78 @@ function DokumenBulanan() {
             <Text>TAHUN AJAR 2023/2024</Text>
           </View>
           <View style={styles.section}>
-            <Text>Nama : Arifin Yunianta</Text>
-            <Text>NIM: 18.11.2345</Text>
-            <Text>Perusahaan : </Text>
+            <View style={styles.bio}>
+              <View style={styles.bioRow}>
+                <View style={styles.bioCol1}>
+                  <Text style={styles.tableCell}>Nama</Text>
+                </View>
+                <View style={styles.bioCol2}>
+                  <Text style={styles.tableCell}>: Arifin Yunianta</Text>
+                </View>
+              </View>
+              <View style={styles.bioRow}>
+                <View style={styles.bioCol1}>
+                  <Text style={styles.tableCell}>NIM</Text>
+                </View>
+                <View style={styles.bioCol2}>
+                  <Text style={styles.tableCell}>: 18.11.2345</Text>
+                </View>
+              </View>
+              <View style={styles.bioRow}>
+                <View style={styles.bioCol1}>
+                  <Text style={styles.tableCell}>Perusahaan</Text>
+                </View>
+                <View style={styles.bioCol2}>
+                  <Text style={styles.tableCell}>: Beecons</Text>
+                </View>
+              </View>
+            </View>
           </View>
+
           <View style={styles.table}>
             <View style={styles.tableRow}>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Product</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Type</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Period</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>Price</Text>
+              <View style={styles.fullColl}>
+                <Text style={styles.tableHeader}>Keterangan</Text>
               </View>
             </View>
             <View style={styles.tableRow}>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>React-PDF</Text>
+              <View style={styles.fullColl}>
+                <Text style={styles.tableHeader}>1</Text>
               </View>
-              <View style={styles.tableCol}>
+            </View>
+          </View>
+
+          <View style={styles.table}>
+            <View style={styles.tableRow}>
+              <View style={styles.tableCol1}>
+                <Text style={styles.tableHeader}>No</Text>
+              </View>
+              <View style={styles.tableCol2}>
+                <Text style={styles.tableHeader}>Tanggal</Text>
+              </View>
+
+              <View style={styles.tableCol3}>
+                <Text style={styles.tableHeader}>Keterangan</Text>
+              </View>
+            </View>
+            <View style={styles.tableRow}>
+              <View style={styles.tableCol1}>
+                <Text style={styles.tableHeader}>1</Text>
+              </View>
+              <View style={styles.tableCol2}>
                 <Text style={styles.tableCell}>3 User </Text>
               </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>2019-02-20 - 2020-02-19</Text>
-              </View>
-              <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>5€</Text>
+
+              <View style={styles.tableCol3}>
+                <Text style={styles.tableCell}>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  <Br /> Deleniti nobis ipsa nisi nulla animi? Voluptates
+                  facilis quae eos, saepe nam aperiam animi fugiat sit beatae,
+                  ab culpa mollitia delectus, adipisci sed explicabo? Ducimus
+                  tenetur rerum minima impedit, provident reprehenderit nisi
+                  unde porro, odit soluta cupiditate sapiente blanditiis vitae
+                  sed labore atque distinctio.
+                </Text>
               </View>
             </View>
           </View>
@@ -111,4 +123,4 @@ function DokumenBulanan() {
   );
 }
 
-export default DokumenBulanan;
+export default withCookies(DokumenBulanan);

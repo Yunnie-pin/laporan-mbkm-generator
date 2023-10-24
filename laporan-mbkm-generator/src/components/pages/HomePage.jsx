@@ -217,7 +217,7 @@ const AccordionItem = (props) => {
           aria-expanded="true"
           aria-controls={`collapse${item.counter}`}
         >
-          Minggu Ke-{item.counter} 
+          Minggu Ke-{item.counter}
         </button>
       </h2>
       <div
@@ -229,38 +229,55 @@ const AccordionItem = (props) => {
         <div className="accordion-body">
           <strong>Laporan Mingguan</strong>
           <div>
-          (
+            (
             {new Date(item.start_date).toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })} - {new Date(item.end_date).toLocaleDateString("id-ID", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-                
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}{" "}
+            -{" "}
+            {new Date(item.end_date).toLocaleDateString("id-ID", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
             )
           </div>
-          <div
-            className="card my-2"
-            style={{ maxHeight: "200px", overflowY: "auto" }}
-          >
-            <div className="card-body">
-              <div
-                dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}
-                className="text-dark"
-              ></div>
+          {item.learned_weekly ? (
+            <div
+              className="card my-2"
+              style={{ maxHeight: "200px", overflowY: "auto" }}
+            >
+              <div className="card-body">
+                <div
+                  dangerouslySetInnerHTML={learnedWeeklyWithLineBreaks}
+                  className="text-dark"
+                ></div>
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="card my-2">
+              <div className="card-body">
+                <div className="text-dark">Belum ada laporan mingguan</div>
+              </div>
+            </div>
+          )}
           <strong>Laporan Harian</strong>
-          <div className="d-flex justify-content-center my-2">
-            {item.daily_report.map((item, index) => {
-              return <ReportHarian item={item} key={item.id} />;
-            })}
-          </div>
+          {item.daily_report.length > 0 ? (
+            <div className="d-flex justify-content-center my-2">
+              {item.daily_report.map((item, index) => {
+                return <ReportHarian item={item} key={item.id} />;
+              })}
+            </div>
+          ) : (
+            <div className="card my-2">
+              <div className="card-body">
+                <div className="text-dark">Belum mengisi laporan harian</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
