@@ -2,20 +2,41 @@ import { Document, Page, Text, View, PDFViewer } from "@react-pdf/renderer";
 import { withCookies } from "react-cookie";
 import { useEffect, useState } from "react";
 import { checkToken } from "../../utils/api";
+import { useSearchParams } from "react-router-dom";
 
 import styles from "../../style/style";
 
 const Br = () => "\n";
 
+function DokumenBulananWrapper(props) {
+  const [searchParams] = useSearchParams();
+  const [cookies] = useState(props.cookies);
+
+  const type = searchParams.get("type");
+  const filter = searchParams.get("filter");
+
+  function renderDocument() {
+    if (type === "bulanan") {
+      return <DokumenBulanan cookies={cookies} filter={filter}/>;
+    } else if (type === "mingguan") {
+      return <>Coba</>;
+    } else {
+      return <>Tidak ada dokumen yang dipilih</>;
+    }
+  }
+
+  return <div>{renderDocument()}</div>;
+}
+
 function DokumenBulanan(props) {
-  const { cookies } = props;
+  const { cookies, filter } = props;
   const [token, setToken] = useState(null);
   const [login, setLogin] = useState(null);
 
   useEffect(() => {
     const token = cookies.get("token");
     setToken(token);
-    
+
     const login = checkToken(token);
     if (login.error) {
       cookies.remove("token");
@@ -36,7 +57,7 @@ function DokumenBulanan(props) {
         {/*render a single page*/}
         <Page size="A4" style={styles.page}>
           <View style={styles.header}>
-            <Text>LAPORAN KEGIATAN MAGANG MBKM BULAN AGUSTUS 2023</Text>
+            <Text>LAPORAN KEGIATAN MAGANG MBKM BULAN {filter}</Text>
             <Text>UNIVERSITAS AMIKOM YOGYAKARTA</Text>
             <Text>PROGRAM STUDI S1 INFORMATIKA</Text>
             <Text>TAHUN AJAR 2023/2024</Text>
@@ -123,4 +144,4 @@ function DokumenBulanan(props) {
   );
 }
 
-export default withCookies(DokumenBulanan);
+export default withCookies(DokumenBulananWrapper);

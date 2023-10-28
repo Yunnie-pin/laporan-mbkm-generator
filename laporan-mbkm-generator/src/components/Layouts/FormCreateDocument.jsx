@@ -20,9 +20,8 @@ function FormCreateDocument(props) {
 
   const handleDocument = (e) => {
     e.preventDefault();
-    console.log('ini work coy');
-    console.log(e.target.bulanan.value);
-    // console.log(data)
+    // console.log(e.target.bulanan.value);
+    window.location.href = `/documentbulanan?type=bulanan&filter=${e.target.bulanan.value}`;
   }
 
   if(data == null) {

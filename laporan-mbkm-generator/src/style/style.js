@@ -12,6 +12,8 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 16,
     marginBottom: 10,
+    // uppercase
+    textTransform: "uppercase",
   },
   viewer: {
     width: window.innerWidth, //the pdf viewer will take up all of the width and height
