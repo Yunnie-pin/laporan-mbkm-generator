@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginTop: 5,
     marginBottom: 5,
+    marginRight: 5,
     fontSize: 10,
   },
   fullCol: {
@@ -102,7 +103,22 @@ const styles = StyleSheet.create({
     borderLeftWidth: 0,
     borderTopWidth: 0,
 
+  },
+  monthYear:{
+    textAlign: "left",
+    marginLeft: 10,
+    marginTop: 10,
+    fontSize: 12,
+    fontWeight: "bold",
+    textTransform: "uppercase",
+  },
+  week:{
+    textAlign: "left",
+    marginLeft: 10,
+    marginTop: 10,
+    fontSize: 10,
   }
+  
 });
 
 export default styles;

@@ -20,7 +20,6 @@ function FormCreateDocument(props) {
 
   const handleDocument = (e) => {
     e.preventDefault();
-    // console.log(e.target.bulanan.value);
     window.location.href = `/documentbulanan?type=bulanan&filter=${e.target.bulanan.value}`;
   }
 
