@@ -3,6 +3,7 @@ import CustomCard from "../Elements/CustomCard";
 import CustomAlert from "../Elements/CustomAlert";
 import GithubContent from "../Layouts/GithubContent";
 import RepositoryContent from "../Layouts/RepositoryContent";
+import "giscus";
 import { getGithubProfile, getRepository } from "../../utils/api";
 
 class DisclaimerPage extends React.Component {
@@ -55,6 +56,25 @@ class DisclaimerPage extends React.Component {
                 "min-height": "250px",
               }}
             ></CustomCard>
+          </div>
+        </div>
+        <div className="d-flex justify-content-center">
+          <div className="pt-3 col-lg-6">
+            <giscus-widget
+              id="comments"
+              repo="Yunnie-pin/laporan-mbkm-generator"
+              repoid="R_kgDOKdNv0w"
+              category="General"
+              categoryid="DIC_kwDOKdNv084Ca9iO"
+              mapping="specific"
+              term="Welcome to giscus!"
+              reactionsenabled="0"
+              emitmetadata="0"
+              inputposition="top"
+              theme="dark"
+              lang="id"
+              loading="lazy"
+            ></giscus-widget>
           </div>
         </div>
       </div>
