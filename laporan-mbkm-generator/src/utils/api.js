@@ -72,8 +72,11 @@ async function getActiveKegiatan(token) {
   // })[0];
 
   // mengambil terakhir yang didapatkan tanpa filter
-  return data.data[data.data.length - 1];
-  
+  // return data.data[data.data.length - 1];
+
+  //mengambil pertama yang didapatkan tanpa filter
+
+  return data.data[0];
 }
 
 async function getGithubProfile() {
