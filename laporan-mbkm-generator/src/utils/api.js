@@ -76,7 +76,17 @@ async function getActiveKegiatan(token) {
 
   //mengambil pertama yang didapatkan tanpa filter
 
-  return data.data[0];
+  // mendapatkan kegiatan yang sedang berlangsung dengan cicle paling banyak dari lainnya 
+  let max = 0;
+  data.data.forEach((data) => {
+    if (data.cycle > max) {
+      max = data.cycle;
+    }
+  });
+
+  return data.data.filter((data) => {
+    return data.cycle === max;
+  })[0];
 }
 
 async function getGithubProfile() {
