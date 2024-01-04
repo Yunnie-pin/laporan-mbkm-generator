@@ -67,9 +67,13 @@ async function getActiveKegiatan(token) {
   const data = await response.json();
 
   //mengambil pertama yang didapatkan
-  return data.data.filter((kegiatan) => {
-    return kegiatan.activity_in_progress === true;
-  })[0];
+  // return data.data.filter((kegiatan) => {
+  //   return kegiatan.activity_in_progress === true;
+  // })[0];
+
+  // mengambil terakhir yang didapatkan tanpa filter
+  return data.data[data.data.length - 1];
+  
 }
 
 async function getGithubProfile() {
